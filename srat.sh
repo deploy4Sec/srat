@@ -1,16 +1,16 @@
 #!/bin/bash
 
 #######################################################################
-#Script Name	:    srat.sh                                                                                              
-#Description	:    Script used to add/modify Sigma Rules in ACSIA SOS                                                                             
-#Args           :    NA                                                                                           
-#Author       	:    Claudio Proietti - Dectar © 2024                                                
-#Email         	:    claudio.proietti@dectar.com
+#Script Name    :    srat.sh
+#Description    :    Script used to add/modify Sigma Rules in ACSIA SOS
+#Args           :    NA
+#Author         :    Claudio Proietti - Dectar © 2024
+#Email          :    claudio.proietti@dectar.com
 #Version        :    1.0
 #Date           :    16/04/2024
 #######################################################################
 
-VERSION="1.0" 
+VERSION="1.0"
 RED="\e[31m"
 GREEN="\e[32m"
 MAGENTA="\e[35m"
@@ -39,14 +39,14 @@ add-mod-sr() {
       printf "\n${GREEN}PUSH COMPLETED!${ENDCOLOR} Result: $post_result\n"
       printf "\n${CYAN}SHOW STAGE SERVICE LOGS...${ENDCOLOR}\n"
       docker logs --tail 30 xdrplus-stage-services
-      printf "\n${CYAN}RESTART STAGE SERVICE...${ENDCOLOR}\n"
-      docker restart xdrplus-stage-services
+      #printf "\n${CYAN}RESTART STAGE SERVICE...${ENDCOLOR}\n"
+      #docker restart xdrplus-stage-services
       printf "\n${GREEN}OPERATION COMPLETED!${ENDCOLOR}\n"
   else
       printf "\n${RED}PUSH FAILED!${ENDCOLOR} Error: $post_result\n"
       printf "\n${CYAN}SHOW STAGE SERVICE LOGS...${ENDCOLOR}\n"
       docker logs --tail 30 xdrplus-stage-services
-      printf "\n${RED}OPERATION FAILED!${ENDCOLOR}\n" 
+      printf "\n${RED}OPERATION FAILED!${ENDCOLOR}\n"
   fi
 }
 
@@ -59,7 +59,7 @@ del-sr() {
   else
     printf "\n${RED}INVALID UUID!${ENDCOLOR}\n"
     return
-  fi  
+  fi
   read -p $'\n\e[33mEnter Rule ID: \e[0m' rule_id
   regex_uuid='^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$'
   if [[ $rule_id =~ $regex_uuid ]]; then
@@ -75,8 +75,8 @@ del-sr() {
       printf "\n${GREEN}DELETE COMPLETED!${ENDCOLOR} Result: $post_result\n"
       printf "\n${CYAN}SHOW STAGE SERVICE LOGS...${ENDCOLOR}\n"
       docker logs --tail 30 xdrplus-stage-services
-      printf "\n${CYAN}RESTART STAGE SERVICE...${ENDCOLOR}\n"
-      docker restart xdrplus-stage-services
+      #printf "\n${CYAN}RESTART STAGE SERVICE...${ENDCOLOR}\n"
+      #docker restart xdrplus-stage-services
       printf "\n${GREEN}OPERATION COMPLETED!${ENDCOLOR}\n"
   else
       printf "\n${RED}DELETE FAILED!${ENDCOLOR} Error: $post_result\n"
